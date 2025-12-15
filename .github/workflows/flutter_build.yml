@@ -25,7 +25,7 @@ jobs:
         run: flutter test
 
       - name: Build Web
-        run: flutter build web --release
+        run: flutter build web --release --base-href "/Tax-Intelligence-TI/"
 
       - name: Build Android APK
         run: flutter build apk --release
@@ -35,6 +35,13 @@ jobs:
         with:
           name: web-build
           path: build/web
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
