@@ -89,6 +89,11 @@ function calculateTax() {
     $('displayTotalIncome').innerText = formatCurrency(totalIncome);
     $('displayNetTaxable').innerText = formatCurrency(netTaxable);
     $('displayTotalTax').innerText = formatCurrency(tax);
+
+    // Update Mobile Sticky Bar
+    const mobileTaxEl = $('displayTotalTaxMobile');
+    if (mobileTaxEl) mobileTaxEl.innerText = formatCurrency(tax);
+
     $('effectiveRate').innerText = rate.toFixed(2) + '%';
 
     // Update Chart

@@ -370,167 +370,204 @@ p {
 }
 
 /* --- Print Layout --- */
+/* --- Mobile Sticky Bar --- */
+.mobile-sticky-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    padding: 15px 20px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-sticky-bar .label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.mobile-sticky-bar .value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+/* Hide Sticky Bar on Desktop & Print */
+@media (min-width: 1024px) {
+    .mobile-sticky-bar {
+        display: none;
+    }
+}
+
 @media print {
+    .mobile-sticky-bar {
+        display: none;
+    }
+}
+
+/* --- Print Layout (A4 Single Page) --- */
+@media print {
+    @page {
+        size: A4;
+        margin: 1cm;
+    }
+
     body {
         background-color: white;
+        font-size: 11px;
+        /* Smaller font to fit */
+    }
 
-        /* --- Print Layout (A4 Single Page) --- */
-        @media print {
-            @page {
-                size: A4;
-                margin: 1cm;
-            }
+    .app-container {
+        padding: 0;
+        max-width: 100%;
+    }
 
-            body {
-                background-color: white;
-                font-size: 11px;
-                /* Smaller font to fit */
-            }
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Force 2 columns */
+        gap: 20px;
+    }
 
-            .app-container {
-                padding: 0;
-                max-width: 100%;
-            }
+    /* Left Side: Compact Inputs */
+    .inputs-section h2 {
+        font-size: 14px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+    }
 
-            .main-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                /* Force 2 columns */
-                gap: 20px;
-            }
+    .input-group {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: none;
+    }
 
-            /* Left Side: Compact Inputs */
-            .inputs-section h2 {
-                font-size: 14px;
-                padding: 5px 10px;
-                margin-bottom: 10px;
-            }
+    .input-row {
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-            .input-group {
-                padding: 10px 15px;
-                margin-bottom: 10px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                box-shadow: none;
-            }
+    .input-row label {
+        margin-bottom: 0;
+        font-size: 11px;
+    }
 
-            .input-row {
-                margin-bottom: 5px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
+    .input-wrapper {
+        width: 140px;
+        /* Specific width for print inputs */
+    }
 
-            .input-row label {
-                margin-bottom: 0;
-                font-size: 11px;
-            }
+    .input-row input {
+        padding: 4px 8px;
+        font-size: 11px;
+        border: 1px solid #eee;
+        background: transparent;
+    }
 
-            .input-wrapper {
-                width: 140px;
-                /* Specific width for print inputs */
-            }
+    .input-wrapper .unit {
+        right: 8px;
+        font-size: 10px;
+    }
 
-            .input-row input {
-                padding: 4px 8px;
-                font-size: 11px;
-                border: 1px solid #eee;
-                background: transparent;
-            }
+    .input-row.info {
+        padding: 5px 10px;
+        margin-bottom: 5px;
+    }
 
-            .input-wrapper .unit {
-                right: 8px;
-                font-size: 10px;
-            }
+    /* Right Side: Compact Dashboard */
+    .result-section {
+        padding-top: 0;
+    }
 
-            .input-row.info {
-                padding: 5px 10px;
-                margin-bottom: 5px;
-            }
+    .desktop-header {
+        margin-bottom: 20px;
+    }
 
-            /* Right Side: Compact Dashboard */
-            .result-section {
-                padding-top: 0;
-            }
+    .desktop-header h1 {
+        font-size: 24px;
+        color: var(--primary);
+    }
 
-            .desktop-header {
-                margin-bottom: 20px;
-            }
+    .sticky-content {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
 
-            .desktop-header h1 {
-                font-size: 24px;
-                color: var(--primary);
-            }
+    .chart-container {
+        margin-bottom: 20px;
+    }
 
-            .sticky-content {
-                position: static;
-                box-shadow: none;
-                border: none;
-                padding: 0;
-            }
+    .circular-chart {
+        width: 160px;
+        height: 160px;
+    }
 
-            .chart-container {
-                margin-bottom: 20px;
-            }
+    .inner-circle {
+        width: 130px;
+        height: 130px;
+    }
 
-            .circular-chart {
-                width: 160px;
-                height: 160px;
-            }
+    .inner-circle span {
+        font-size: 28px;
+    }
 
-            .inner-circle {
-                width: 130px;
-                height: 130px;
-            }
+    .summary-cards {
+        gap: 10px;
+    }
 
-            .inner-circle span {
-                font-size: 28px;
-            }
+    .card {
+        padding: 10px;
+        border: 1px solid #eee;
+        box-shadow: none;
+    }
 
-            .summary-cards {
-                gap: 10px;
-            }
+    .card h3 {
+        font-size: 16px;
+    }
 
-            .card {
-                padding: 10px;
-                border: 1px solid #eee;
-                box-shadow: none;
-            }
+    .card.highlight h3 {
+        font-size: 24px;
+    }
 
-            .card h3 {
-                font-size: 16px;
-            }
+    /* Hide Elements */
+    .mobile-header,
+    .print-btn,
+    .footer-desktop p {
+        display: none;
+    }
 
-            .card.highlight h3 {
-                font-size: 24px;
-            }
+    /* Footer for print */
+    .footer-desktop {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
 
-            /* Hide Elements */
-            .mobile-header,
-            .print-btn,
-            .footer-desktop p {
-                display: none;
-            }
+    .footer-desktop::after {
+        content: "Generated by Tax Intelligence (TI) - Suphakrit";
+        font-size: 10px;
+        color: #999;
+    }
 
-            /* Footer for print */
-            .footer-desktop {
-                display: block;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            .footer-desktop::after {
-                content: "Generated by Tax Intelligence (TI) - Suphakrit";
-                font-size: 10px;
-                color: #999;
-            }
-
-            .card.highlight {
-                background: #045149 !important;
-                -webkit-print-color-adjust: exact;
-                color: white !important;
-            }
-        }
+    .card.highlight {
+        background: #045149 !important;
+        -webkit-print-color-adjust: exact;
+        color: white !important;
+    }
+}
