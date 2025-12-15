@@ -85,22 +85,62 @@ function calculateTax() {
     // 8. Effective Rate
     const rate = totalIncome > 0 ? (tax / totalIncome) * 100 : 0;
 
-    // Update UI
-    $('displayTotalIncome').innerText = formatCurrency(totalIncome);
-    $('displayNetTaxable').innerText = formatCurrency(netTaxable);
-    $('displayTotalTax').innerText = formatCurrency(tax);
+    // --- Animations & Updates ---
+
+    // Animate Values
+    animateValue('displayTotalIncome', totalIncome);
+    animateValue('displayNetTaxable', netTaxable);
+    animateValue('displayTotalTax', tax);
 
     // Update Mobile Sticky Bar
-    const mobileTaxEl = $('displayTotalTaxMobile');
-    if (mobileTaxEl) mobileTaxEl.innerText = formatCurrency(tax);
+    animateValue('displayTotalTaxMobile', tax);
 
+    // Rate update (Keep simple text for rate)
     $('effectiveRate').innerText = rate.toFixed(2) + '%';
 
-    // Update Chart
+    // Update Chart with Animation
     // Springer Green (#045149) vs Pale #BFDBDD
     const percent = Math.min(rate, 100);
     const chart = $('taxChart');
     chart.style.background = `conic-gradient(#045149 ${percent}%, #BFDBDD 0%)`;
+
+    // Add Pulse visual
+    chart.classList.remove('pulse-anim');
+    void chart.offsetWidth; // Trigger reflow
+    chart.classList.add('pulse-anim');
+}
+
+// Previous Value Storage for smooth transitions
+const previousValues = {};
+
+function animateValue(id, endValue) {
+    const obj = $(id);
+    if (!obj) return;
+
+    const startValue = previousValues[id] || 0;
+    if (startValue === endValue) return; // No change
+
+    const duration = 500; // 0.5s
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function (easeOutQuad)
+        const ease = 1 - (1 - progress) * (1 - progress);
+
+        const current = startValue + (endValue - startValue) * ease;
+
+        obj.innerText = formatCurrency(Math.floor(current));
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            previousValues[id] = endValue; // Store final
+        }
+    }
+    requestAnimationFrame(update);
 }
 
 // Add Listeners
