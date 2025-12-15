@@ -1,10 +1,23 @@
 :root {
-    --bg-navy: #0A1929;
-    --bg-card: #172A46;
-    --text-primary: #FFFFFF;
-    --text-secondary: #B0BEC5;
-    --accent-gold: #FFD700;
-    --accent-cyan: #00E5FF;
+    /* Soft White Theme Palette */
+    --bg-main: #F3F4F6;
+    /* Soft Cloud Grey */
+    --bg-card: #FFFFFF;
+    /* Pure White */
+    --primary: #3B82F6;
+    /* Soft Blue */
+    --primary-light: #EBF8FF;
+    /* Very Light Blue */
+    --success: #10B981;
+    /* Soft Green */
+    --text-main: #1F2937;
+    /* Dark Grey (Not Black) */
+    --text-muted: #6B7280;
+    /* Muted Grey */
+    --border: #E5E7EB;
+    /* Light Border */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
     --font-main: 'Prompt', sans-serif;
 }
 
@@ -12,11 +25,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-print-color-adjust: exact;
+    /* Better printing */
 }
 
 body {
-    background-color: var(--bg-navy);
-    color: var(--text-primary);
+    background-color: var(--bg-main);
+    color: var(--text-main);
     font-family: var(--font-main);
     display: flex;
     justify-content: center;
@@ -25,38 +40,37 @@ body {
 
 .app-container {
     width: 100%;
-    /* Remove max-width for desktop capability, handle inside main-grid */
-    background-color: var(--bg-navy);
     padding: 20px;
 }
 
-/* --- Typography & Base --- */
+/* --- Typography --- */
 h1 {
-    color: var(--accent-cyan);
-    letter-spacing: 1.5px;
+    color: var(--primary);
+    font-weight: 600;
     font-size: 24px;
     margin-bottom: 5px;
 }
 
 h2 {
     font-size: 18px;
-    color: var(--accent-cyan);
+    color: var(--primary);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
+    background: var(--primary-light);
+    padding: 10px 15px;
+    border-radius: 10px;
 }
 
 p {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 14px;
 }
 
-/* --- Layout System --- */
+/* --- Layout --- */
 .main-grid {
     display: flex;
-    flex-direction: column-reverse;
-    /* Mobile: Result on top? No, Input first usually. Let's stick to standard flow */
     flex-direction: column;
     gap: 30px;
     max-width: 480px;
@@ -66,7 +80,6 @@ p {
 .mobile-header {
     text-align: center;
     margin-bottom: 20px;
-    display: block;
 }
 
 .desktop-header {
@@ -75,26 +88,24 @@ p {
 
 /* --- Inputs Section --- */
 .input-group {
-    background-color: #102035;
-    border-radius: 16px;
+    background-color: var(--bg-card);
+    border-radius: 20px;
     padding: 25px;
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
 }
 
 .input-row {
     margin-bottom: 20px;
 }
 
-.input-row:last-child {
-    margin-bottom: 0;
-}
-
 .input-row label {
     display: block;
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--text-main);
     margin-bottom: 8px;
+    font-weight: 500;
 }
 
 .input-wrapper {
@@ -105,28 +116,28 @@ p {
 
 .input-row input {
     width: 100%;
-    background-color: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    background-color: #F9FAFB;
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 14px 16px;
     padding-right: 50px;
-    /* Space for unit */
-    color: white;
+    color: var(--text-main);
     font-family: var(--font-main);
     font-size: 16px;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 .input-row input:focus {
     outline: none;
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+    border-color: var(--primary);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .input-wrapper .unit {
     position: absolute;
     right: 15px;
-    color: var(--accent-cyan);
+    color: var(--text-muted);
     font-size: 14px;
     pointer-events: none;
 }
@@ -135,19 +146,21 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 229, 255, 0.05);
+    background: #F0FDF4;
+    /* Very light green */
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 20px;
+    border: 1px solid #BBF7D0;
 }
 
 .input-row.info label {
     margin-bottom: 0;
-    color: var(--text-primary);
+    color: #166534;
 }
 
 .input-row.info span {
-    color: var(--accent-cyan);
+    color: #166534;
     font-weight: 600;
 }
 
@@ -162,45 +175,37 @@ p {
 .circular-chart {
     width: 200px;
     height: 200px;
-    background: conic-gradient(var(--bg-card) 0% 100%);
+    background: conic-gradient(var(--border) 0% 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 40px rgba(0, 229, 255, 0.1);
     position: relative;
     transition: background 0.5s ease;
-}
-
-.circular-chart::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-    z-index: -1;
+    box-shadow: var(--shadow);
+    background-color: white;
 }
 
 .inner-circle {
-    width: 155px;
-    height: 155px;
-    background-color: var(--bg-navy);
+    width: 160px;
+    height: 160px;
+    background-color: var(--bg-card);
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 .inner-circle span {
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--text-primary);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary);
 }
 
 .inner-circle small {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 14px;
 }
 
@@ -215,31 +220,20 @@ p {
     padding: 20px;
     border-radius: 16px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
 }
 
 .card.highlight {
     grid-column: span 2;
-    border-color: var(--accent-gold);
-    background: linear-gradient(135deg, #172A46 0%, #253b5e 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.card.highlight::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--accent-gold);
-    box-shadow: 0 0 10px var(--accent-gold);
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    color: white;
+    border: none;
 }
 
 .card span {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     display: block;
     margin-bottom: 8px;
 }
@@ -247,63 +241,73 @@ p {
 .card h3 {
     font-family: var(--font-main);
     font-size: 20px;
+    color: var(--text-main);
+}
+
+.card.highlight span {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .card.highlight h3 {
-    color: var(--accent-gold);
+    color: #FFFFFF;
     font-size: 32px;
     margin-bottom: 5px;
 }
 
-.tax-note {
-    font-size: 12px;
-    color: var(--text-secondary);
-    opacity: 0.7;
+.card.highlight .tax-note {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* --- Utilities --- */
+.print-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--text-main);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-main);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    transition: opacity 0.2s;
+}
+
+.print-btn:hover {
+    opacity: 0.9;
 }
 
 .footer-desktop {
     display: none;
 }
 
-/* ==========================================================================
-   DESKTOP RESPONSIVE LAYOUT (Min-width: 1024px)
-   ========================================================================== */
+/* --- Desktop Layout --- */
 @media (min-width: 1024px) {
     .app-container {
         padding: 40px;
         max-width: 1280px;
-        /* PC Width */
         margin: 0 auto;
-        display: flex;
-        justify-content: center;
     }
 
     .main-grid {
         display: grid;
         grid-template-columns: 1.2fr 1fr;
-        /* Inputs slightly larger, Result fixed */
         gap: 60px;
         max-width: 1200px;
         width: 100%;
     }
 
-    /* Left Side */
     .inputs-section {
-        background: #0d1f33;
-        padding: 40px;
-        border-radius: 24px;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+        /* No Background on large screen, just clean cards */
     }
 
     .mobile-header {
         display: none;
-        /* Hide mobile header */
-    }
-
-    /* Right Side */
-    .result-section {
-        position: relative;
-        padding-top: 20px;
     }
 
     .desktop-header {
@@ -323,44 +327,54 @@ p {
     .sticky-content {
         position: sticky;
         top: 40px;
-        /* Sticky effect on scroll */
-        background: #102035;
+        background: white;
         padding: 40px;
         border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Enhanced Visuals for PC */
-    .circular-chart {
-        width: 240px;
-        height: 240px;
-        margin-bottom: 40px;
-    }
-
-    .inner-circle {
-        width: 190px;
-        height: 190px;
-    }
-
-    .inner-circle span {
-        font-size: 42px;
-    }
-
-    .card {
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        background-color: #1c3352;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border: 1px solid var(--border);
     }
 
     .footer-desktop {
         display: block;
         text-align: center;
         margin-top: 30px;
-        color: rgba(255, 255, 255, 0.2);
+        color: var(--text-muted);
         font-size: 13px;
+    }
+}
+
+/* --- Print Layout --- */
+@media print {
+    body {
+        background-color: white;
+    }
+
+    .main-grid {
+        display: block;
+    }
+
+    .inputs-section,
+    .print-btn,
+    .footer-desktop,
+    h2,
+    .input-group:not(:last-child) {
+        /* Hide inputs when printing? No, maybe user wants to see what they entered. */
+        /* Let's clean it up. Hide input borders */
+    }
+
+    .print-btn {
+        display: none;
+    }
+
+    .sticky-content {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        position: static;
+    }
+
+    /* Force background colors */
+    .card.highlight {
+        background: #3B82F6 !important;
+        -webkit-print-color-adjust: exact;
     }
 }

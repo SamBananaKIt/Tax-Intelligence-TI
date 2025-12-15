@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax Intelligence (TI) - คำนวณภาษี 2567</title>
+    <title>Tax Intelligence - คำนวณภาษีแบบละมุน</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Prompt for Thai -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,12 +20,12 @@
             <section class="inputs-section">
                 <header class="mobile-header">
                     <h1>TAX INTELLIGENCE</h1>
-                    <p>คำนวณภาษีเงินได้บุคคลธรรมดา ปี 2567</p>
+                    <p>คำนวณภาษี 2567 (เวอร์ชันใหม่ 3.0)</p>
                 </header>
 
                 <!-- Income Group -->
                 <div class="input-group">
-                    <h2><span class="icon">💰</span> รายได้ (Income)</h2>
+                    <h2>💰 รายได้ (Income)</h2>
                     <div class="input-row">
                         <label>เงินเดือน (ต่อเดือน)</label>
                         <div class="input-wrapper">
@@ -42,9 +41,9 @@
                         </div>
                     </div>
                     <div class="input-row">
-                        <label>รายได้อื่นๆ (ฟรีแลนซ์/ธุรกิจเสริม)</label>
+                        <label>รายได้อื่นๆ</label>
                         <div class="input-wrapper">
-                            <input type="number" id="otherIncome" placeholder="ระบุจำนวนเงิน">
+                            <input type="number" id="otherIncome" placeholder="ฟรีแลนซ์ / รับจ้าง">
                             <span class="unit">บาท</span>
                         </div>
                     </div>
@@ -52,52 +51,87 @@
 
                 <!-- Deductions Group -->
                 <div class="input-group">
-                    <h2><span class="icon">🛡️</span> ค่าลดหย่อน (Deductions)</h2>
+                    <h2>🛡️ ค่าลดหย่อนพื้นฐาน</h2>
 
                     <div class="input-row info">
-                        <label>ลดหย่อนส่วนตัว (อัตโนมัติ)</label>
+                        <label>ลดหย่อนส่วนตัว</label>
                         <span>60,000 บาท</span>
                     </div>
 
                     <div class="input-row">
-                        <label>ประกันสังคม (สูงสุด 9,000)</label>
+                        <label>ประกันสังคม (Social Security)</label>
                         <div class="input-wrapper">
-                            <input type="number" id="sso" placeholder="ระบุยอดที่จ่ายจริง">
+                            <input type="number" id="sso" placeholder="สูงสุด 9,000">
                             <span class="unit">บาท</span>
                         </div>
                     </div>
                     <div class="input-row">
-                        <label>Easy E-Receipt (สูงสุด 50,000)</label>
+                        <label>Easy E-Receipt</label>
                         <div class="input-wrapper">
-                            <input type="number" id="eReceipt" placeholder="ช้อปปิ้งปี 2567">
-                            <span class="unit">บาท</span>
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <label>ประกันชีวิต + สุขภาพ (สูงสุด 100,000)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="insurance" placeholder="ยอดเบี้ยประกัน">
-                            <span class="unit">บาท</span>
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <label>กองทุนสำรองฯ / RMF / SSF (สูงสุด 500,000)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="pension" placeholder="ยอดเงินลงทุนรวม">
-                            <span class="unit">บาท</span>
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <label>Thai ESG (สูงสุด 100,000)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="thaiEsg" placeholder="ยอดเงินลงทุน">
+                            <input type="number" id="eReceipt" placeholder="ช้อปปิ้ง สูงสุด 50,000">
                             <span class="unit">บาท</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Investment & Loans Group -->
+                <div class="input-group">
+                    <h2>🏠 การออมและดอกเบี้ยบ้าน</h2>
+
+                    <div class="input-row">
+                        <label>ดอกเบี้ยกู้บ้าน (Home Loan Interest)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="homeLoan" placeholder="สูงสุด 100,000">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>ประกันชีวิต + สุขภาพ</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="insurance" placeholder="สูงสุด 100,000">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>กองทุน (PVD/SSF/RMF)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="pension" placeholder="สูงสุด 500,000">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>Thai ESG</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="thaiEsg" placeholder="สูงสุด 100,000">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donation Group -->
+                <div class="input-group">
+                    <h2>🙏 เงินบริจาค (Donation)</h2>
+                    <div class="input-row">
+                        <label>บริจาคเพื่อการศึกษา/กีฬา/โรงพยาบาล (ลดหย่อน 2 เท่า)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="donationDouble" placeholder="ระบุยอดที่จ่ายจริง">
+                            <span class="unit">บาท</span>
+                        </div>
+                        <p style="font-size: 12px; margin-top: 5px; color: #10B981;">*ระบบจะคูณ 2 ให้เอง โดยอัตโนมัติ
+                        </p>
+                    </div>
+                    <div class="input-row">
+                        <label>บริจาคทั่วไป (มูลนิธิ/วัด)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="donationGeneral" placeholder="ลดหย่อนตามจริง">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                </div>
+
             </section>
 
-            <!-- Right Side: Dashboard & Result (Sticky on Desktop) -->
+            <!-- Right Side: Dashboard -->
             <section class="result-section">
                 <header class="desktop-header">
                     <h1>TAX INTELLIGENCE</h1>
@@ -116,11 +150,11 @@
 
                     <div class="summary-cards">
                         <div class="card">
-                            <span>รายได้รวมทั้งปี</span>
+                            <span>รายได้รวม</span>
                             <h3 id="displayTotalIncome">0</h3>
                         </div>
                         <div class="card">
-                            <span>เงินได้สุทธิ (คิดภาษี)</span>
+                            <span>เงินได้สุทธิ</span>
                             <h3 id="displayNetTaxable">0</h3>
                         </div>
                         <div class="card highlight">
@@ -130,8 +164,12 @@
                         </div>
                     </div>
 
+                    <button class="print-btn" onclick="window.print()">
+                        🖨️ พิมพ์รายงาน
+                    </button>
+
                     <div class="footer-desktop">
-                        <p>Tax Intelligence v2.0 • Offline Ready</p>
+                        <p>Tax Intelligence v3.0 • White Theme</p>
                     </div>
                 </div>
             </section>
