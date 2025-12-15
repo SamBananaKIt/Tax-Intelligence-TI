@@ -309,6 +309,11 @@ p {
         width: 100%;
     }
 
+    /* Reset Order for Desktop */
+    .result-section {
+        order: unset;
+    }
+
     .inputs-section {
         /* No Background on large screen, just clean cards */
     }
