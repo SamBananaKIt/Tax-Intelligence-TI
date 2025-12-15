@@ -215,10 +215,45 @@ window.onclick = (event) => {
     }
 }
 
+// --- Auto-Save System ---
+function saveToLocal() {
+    const data = {};
+    inputs.forEach(id => {
+        const el = $(id);
+        if (el) data[id] = el.value;
+    });
+    localStorage.setItem('taxData_v3', JSON.stringify(data));
+}
+
+function loadFromLocal() {
+    const saved = localStorage.getItem('taxData_v3');
+    if (!saved) return;
+
+    try {
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(id => {
+            const el = $(id);
+            if (el) el.value = data[id];
+        });
+        // Recalculate after loading
+        calculateTax();
+    } catch (e) {
+        console.error("Error loading save:", e);
+    }
+}
+
 // Add Listeners
 inputs.forEach(id => {
     const el = $(id);
     if (el) {
-        el.addEventListener('input', calculateTax);
+        el.addEventListener('input', () => {
+            calculateTax();
+            saveToLocal(); // Auto-save on every input
+        });
     }
+});
+
+// Initialize
+window.addEventListener('DOMContentLoaded', () => {
+    loadFromLocal();
 });
