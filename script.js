@@ -222,11 +222,11 @@ function saveToLocal() {
         const el = $(id);
         if (el) data[id] = el.value;
     });
-    localStorage.setItem('taxData_v3', JSON.stringify(data));
+    localStorage.setItem('taxData_v1', JSON.stringify(data));
 }
 
 function loadFromLocal() {
-    const saved = localStorage.getItem('taxData_v3');
+    const saved = localStorage.getItem('taxData_v1');
     if (!saved) return;
 
     try {
