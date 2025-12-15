@@ -1,0 +1,20 @@
+{
+    "name": "Tax Intelligence",
+    "short_name": "Tax Intel",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#F2F0E4",
+    "theme_color": "#045149",
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
