@@ -5,8 +5,7 @@
     --text-secondary: #B0BEC5;
     --accent-gold: #FFD700;
     --accent-cyan: #00E5FF;
-    --font-head: 'Prompt', sans-serif;
-    --font-body: 'Poppins', sans-serif;
+    --font-main: 'Prompt', sans-serif;
 }
 
 * {
@@ -18,7 +17,7 @@
 body {
     background-color: var(--bg-navy);
     color: var(--text-primary);
-    font-family: var(--font-body);
+    font-family: var(--font-main);
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -26,65 +25,166 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 480px; /* Mobile App feel */
+    /* Remove max-width for desktop capability, handle inside main-grid */
     background-color: var(--bg-navy);
     padding: 20px;
 }
 
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 10px;
-}
-
-header h1 {
-    font-family: var(--font-head);
+/* --- Typography & Base --- */
+h1 {
     color: var(--accent-cyan);
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     font-size: 24px;
+    margin-bottom: 5px;
 }
 
-header p {
+h2 {
+    font-size: 18px;
+    color: var(--accent-cyan);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+p {
     color: var(--text-secondary);
     font-size: 14px;
 }
 
-/* Dashboard */
-.dashboard {
+/* --- Layout System --- */
+.main-grid {
     display: flex;
+    flex-direction: column-reverse;
+    /* Mobile: Result on top? No, Input first usually. Let's stick to standard flow */
     flex-direction: column;
+    gap: 30px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.mobile-header {
+    text-align: center;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.desktop-header {
+    display: none;
+}
+
+/* --- Inputs Section --- */
+.input-group {
+    background-color: #102035;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.input-row {
+    margin-bottom: 20px;
+}
+
+.input-row:last-child {
+    margin-bottom: 0;
+}
+
+.input-row label {
+    display: block;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
     align-items: center;
+}
+
+.input-row input {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 14px 16px;
+    padding-right: 50px;
+    /* Space for unit */
+    color: white;
+    font-family: var(--font-main);
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.input-row input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+}
+
+.input-wrapper .unit {
+    position: absolute;
+    right: 15px;
+    color: var(--accent-cyan);
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.input-row.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 229, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.input-row.info label {
+    margin-bottom: 0;
+    color: var(--text-primary);
+}
+
+.input-row.info span {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+/* --- Result Section --- */
+.chart-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 30px;
+    margin-top: 10px;
 }
 
 .circular-chart {
-    width: 180px;
-    height: 180px;
-    background: conic-gradient(var(--bg-card) 0% 100%); /* Dynamic via JS */
+    width: 200px;
+    height: 200px;
+    background: conic-gradient(var(--bg-card) 0% 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
-    margin-bottom: 25px;
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.1);
     position: relative;
+    transition: background 0.5s ease;
 }
 
-/* Glow effect */
 .circular-chart::before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
     z-index: -1;
 }
 
 .inner-circle {
-    width: 140px;
-    height: 140px;
+    width: 155px;
+    height: 155px;
     background-color: var(--bg-navy);
     border-radius: 50%;
     display: flex;
@@ -94,117 +194,173 @@ header p {
 }
 
 .inner-circle span {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     color: var(--text-primary);
 }
 
 .inner-circle small {
     color: var(--text-secondary);
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .summary-cards {
-    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 15px;
 }
 
 .card {
     background-color: var(--bg-card);
-    padding: 15px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 16px;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .card.highlight {
     grid-column: span 2;
     border-color: var(--accent-gold);
-    background: linear-gradient(145deg, #172A46, #1f3659);
+    background: linear-gradient(135deg, #172A46 0%, #253b5e 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.card.highlight::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-gold);
+    box-shadow: 0 0 10px var(--accent-gold);
 }
 
 .card span {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-secondary);
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .card h3 {
-    font-family: var(--font-head);
-    font-size: 18px;
+    font-family: var(--font-main);
+    font-size: 20px;
 }
 
 .card.highlight h3 {
     color: var(--accent-gold);
-    font-size: 24px;
+    font-size: 32px;
+    margin-bottom: 5px;
 }
 
-/* Inputs */
-.input-group {
-    background-color: #102035;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.input-group h2 {
-    font-size: 16px;
-    color: var(--accent-cyan);
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.input-row {
-    margin-bottom: 15px;
-}
-
-.input-row label {
-    display: block;
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-}
-
-.input-row input {
-    width: 100%;
-    background-color: var(--bg-card);
-    border: 1px solid transparent;
-    border-radius: 8px;
-    padding: 12px;
-    color: white;
-    font-family: var(--font-body);
-    font-size: 16px;
-    transition: all 0.3s;
-}
-
-.input-row input:focus {
-    outline: none;
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
-}
-
-.input-row.info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.input-row.info span {
-    color: var(--accent-cyan);
-    font-weight: 600;
-    font-size: 14px;
-}
-
-footer {
-    text-align: center;
-    color: rgba(255,255,255,0.2);
+.tax-note {
     font-size: 12px;
-    margin-top: 20px;
-    padding-bottom: 20px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.footer-desktop {
+    display: none;
+}
+
+/* ==========================================================================
+   DESKTOP RESPONSIVE LAYOUT (Min-width: 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+    .app-container {
+        padding: 40px;
+        max-width: 1280px;
+        /* PC Width */
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        /* Inputs slightly larger, Result fixed */
+        gap: 60px;
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    /* Left Side */
+    .inputs-section {
+        background: #0d1f33;
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .mobile-header {
+        display: none;
+        /* Hide mobile header */
+    }
+
+    /* Right Side */
+    .result-section {
+        position: relative;
+        padding-top: 20px;
+    }
+
+    .desktop-header {
+        display: block;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .desktop-header h1 {
+        font-size: 36px;
+    }
+
+    .desktop-header p {
+        font-size: 16px;
+    }
+
+    .sticky-content {
+        position: sticky;
+        top: 40px;
+        /* Sticky effect on scroll */
+        background: #102035;
+        padding: 40px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Enhanced Visuals for PC */
+    .circular-chart {
+        width: 240px;
+        height: 240px;
+        margin-bottom: 40px;
+    }
+
+    .inner-circle {
+        width: 190px;
+        height: 190px;
+    }
+
+    .inner-circle span {
+        font-size: 42px;
+    }
+
+    .card {
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        background-color: #1c3352;
+    }
+
+    .footer-desktop {
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+    }
 }

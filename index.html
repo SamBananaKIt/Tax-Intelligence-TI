@@ -1,108 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax Intelligence (TI)</title>
+    <title>Tax Intelligence (TI) - คำนวณภาษี 2567</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Poppins & Prompt -->
+    <!-- Google Fonts: Prompt for Thai -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="app-container">
-        <!-- Header -->
-        <header>
-            <h1>TAX INTELLIGENCE</h1>
-            <p>Thai Tax Year 2024</p>
-        </header>
+        <!-- Main Grid Layout -->
+        <main class="main-grid">
 
-        <!-- Visualization Dashboard -->
-        <section class="dashboard">
-            <div class="chart-container">
-                <div class="circular-chart" id="taxChart">
-                    <div class="inner-circle">
-                        <span id="effectiveRate">0.00%</span>
-                        <small>Effective Rate</small>
+            <!-- Left Side: Input Forms -->
+            <section class="inputs-section">
+                <header class="mobile-header">
+                    <h1>TAX INTELLIGENCE</h1>
+                    <p>คำนวณภาษีเงินได้บุคคลธรรมดา ปี 2567</p>
+                </header>
+
+                <!-- Income Group -->
+                <div class="input-group">
+                    <h2><span class="icon">💰</span> รายได้ (Income)</h2>
+                    <div class="input-row">
+                        <label>เงินเดือน (ต่อเดือน)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="salary" placeholder="เช่น 50000">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>โบนัส (ทั้งปี)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="bonus" placeholder="เช่น 100000">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>รายได้อื่นๆ (ฟรีแลนซ์/ธุรกิจเสริม)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="otherIncome" placeholder="ระบุจำนวนเงิน">
+                            <span class="unit">บาท</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="summary-cards">
-                <div class="card">
-                    <span>Total Income</span>
-                    <h3 id="displayTotalIncome">0</h3>
-                </div>
-                <div class="card">
-                    <span>Net Taxable</span>
-                    <h3 id="displayNetTaxable">0</h3>
-                </div>
-                <div class="card highlight">
-                    <span>Total Tax</span>
-                    <h3 id="displayTotalTax">0</h3>
-                </div>
-            </div>
-        </section>
 
-        <!-- Input Section -->
-        <section class="inputs">
-            
-            <!-- Income Group -->
-            <div class="input-group">
-                <h2><span class="icon">💰</span> Income Details</h2>
-                <div class="input-row">
-                    <label>Monthly Salary (x12)</label>
-                    <input type="number" id="salary" placeholder="e.g. 50000">
-                </div>
-                <div class="input-row">
-                    <label>Yearly Bonus</label>
-                    <input type="number" id="bonus" placeholder="e.g. 100000">
-                </div>
-                <div class="input-row">
-                    <label>Other Income</label>
-                    <input type="number" id="otherIncome" placeholder="Freelance, Business">
-                </div>
-            </div>
+                <!-- Deductions Group -->
+                <div class="input-group">
+                    <h2><span class="icon">🛡️</span> ค่าลดหย่อน (Deductions)</h2>
 
-            <!-- Deductions Group -->
-            <div class="input-group">
-                <h2><span class="icon">🛡️</span> Deductions</h2>
-                
-                <div class="input-row info">
-                    <label>Personal Allowance</label>
-                    <span>60,000 THB (Fixed)</span>
-                </div>
+                    <div class="input-row info">
+                        <label>ลดหย่อนส่วนตัว (อัตโนมัติ)</label>
+                        <span>60,000 บาท</span>
+                    </div>
 
-                <div class="input-row">
-                    <label>Social Security (Max 9k)</label>
-                    <input type="number" id="sso" placeholder="Amount paid">
+                    <div class="input-row">
+                        <label>ประกันสังคม (สูงสุด 9,000)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="sso" placeholder="ระบุยอดที่จ่ายจริง">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>Easy E-Receipt (สูงสุด 50,000)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="eReceipt" placeholder="ช้อปปิ้งปี 2567">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>ประกันชีวิต + สุขภาพ (สูงสุด 100,000)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="insurance" placeholder="ยอดเบี้ยประกัน">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>กองทุนสำรองฯ / RMF / SSF (สูงสุด 500,000)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="pension" placeholder="ยอดเงินลงทุนรวม">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <label>Thai ESG (สูงสุด 100,000)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="thaiEsg" placeholder="ยอดเงินลงทุน">
+                            <span class="unit">บาท</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-row">
-                    <label>Easy E-Receipt (Max 50k)</label>
-                    <input type="number" id="eReceipt" placeholder="Shopping 2024">
-                </div>
-                <div class="input-row">
-                    <label>Life/Health Insurance (Max 100k)</label>
-                    <input type="number" id="insurance" placeholder="Premium paid">
-                </div>
-                <div class="input-row">
-                    <label>Pension / RMF / SSF (Max 500k)</label>
-                    <input type="number" id="pension" placeholder="Investment total">
-                </div>
-                <div class="input-row">
-                    <label>Thai ESG (Max 100k)</label>
-                    <input type="number" id="thaiEsg" placeholder="Investment">
-                </div>
-            </div>
+            </section>
 
-        </section>
+            <!-- Right Side: Dashboard & Result (Sticky on Desktop) -->
+            <section class="result-section">
+                <header class="desktop-header">
+                    <h1>TAX INTELLIGENCE</h1>
+                    <p>สรุปภาษีของคุณ (ปี 2567)</p>
+                </header>
 
-        <footer>
-            <p>Tax Intelligence v2.0 • Offline Ready</p>
-        </footer>
+                <div class="sticky-content">
+                    <div class="chart-container">
+                        <div class="circular-chart" id="taxChart">
+                            <div class="inner-circle">
+                                <span id="effectiveRate">0.00%</span>
+                                <small>อัตราภาษีจริง</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-cards">
+                        <div class="card">
+                            <span>รายได้รวมทั้งปี</span>
+                            <h3 id="displayTotalIncome">0</h3>
+                        </div>
+                        <div class="card">
+                            <span>เงินได้สุทธิ (คิดภาษี)</span>
+                            <h3 id="displayNetTaxable">0</h3>
+                        </div>
+                        <div class="card highlight">
+                            <span>ภาษีที่ต้องจ่าย</span>
+                            <h3 id="displayTotalTax">0</h3>
+                            <small class="tax-note">บาท / ปี</small>
+                        </div>
+                    </div>
+
+                    <div class="footer-desktop">
+                        <p>Tax Intelligence v2.0 • Offline Ready</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
