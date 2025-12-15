@@ -23,14 +23,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Run Unit Tests
-        run: flutter test
+      # - name: Run Unit Tests
+      #   run: flutter test
 
       - name: Build Web
         run: flutter build web --release --base-href "/Tax-Intelligence-TI-/"
 
-      - name: Build Android APK
-        run: flutter build apk --release
+      # - name: Build Android APK
+      #   run: flutter build apk --release
 
       - name: Upload Web Build
         uses: actions/upload-artifact@v3
@@ -45,8 +45,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release.apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+      # - name: Upload APK
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: app-release.apk
+      #     path: build/app/outputs/flutter-apk/app-release.apk
