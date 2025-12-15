@@ -583,3 +583,243 @@ p {
         color: white !important;
     }
 }
+
+/* --- Animations & Micro-interactions --- */
+
+/* 1. Entrance Animations */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations with staggered delays */
+.mobile-header,
+.desktop-header {
+    animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+.input-group {
+    opacity: 0;
+    /* Hidden initially */
+    animation: fadeSlideUp 0.6s ease-out 0.2s forwards;
+    /* Delay 0.2s */
+}
+
+.result-section {
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease-out 0.4s forwards;
+    /* Delay 0.4s */
+}
+
+.mobile-sticky-bar {
+    animation: fadeSlideUp 0.6s ease-out 0.6s forwards;
+    opacity: 0;
+}
+
+/* 2. Micro-interactions */
+
+/* Card Hover Effect */
+.card {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px -5px rgba(4, 81, 73, 0.15);
+}
+
+/* Input Focus Expansion */
+.input-wrapper {
+    transition: transform 0.2s ease;
+}
+
+.input-row input:focus {
+    transform: scale(1.02);
+}
+
+/* Chart Pulse on Update (Class will be added by JS) */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-anim {
+    animation: pulse 0.3s ease-in-out;
+}
+
+/* Print Button Pulse */
+@keyframes softPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(4, 81, 73, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(4, 81, 73, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(4, 81, 73, 0);
+    }
+}
+
+.print-btn {
+    animation: softPulse 2s infinite;
+}
+
+.print-btn:hover {
+    animation: none;
+    transform: scale(1.02);
+}
+
+/* --- Tax Details Modal --- */
+.btn-details {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-details:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-details-mobile {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black w/ opacity */
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    /* Wider for Desktop */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: scaleUp 0.3s;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--text-main);
+}
+
+.table-wrapper {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.tax-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tax-table th,
+.tax-table td {
+    border-bottom: 1px solid #eee;
+    padding: 12px;
+    /* More padding */
+    text-align: right;
+}
+
+.tax-table th:first-child,
+.tax-table td:first-child {
+    text-align: left;
+}
+
+.tax-table th {
+    background-color: #f9fafb;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.tax-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tax-table .bracket-active {
+    background-color: #dcfce7;
+    /* Stronger active color */
+    font-weight: 600;
+    color: #166534;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
