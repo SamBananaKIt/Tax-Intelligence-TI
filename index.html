@@ -162,6 +162,7 @@
                             <span>ภาษีที่ต้องจ่าย</span>
                             <h3 id="displayTotalTax">0</h3>
                             <small class="tax-note">บาท / ปี</small>
+                            <button id="btnShowDetails" class="btn-details">ดูรายละเอียด</button>
                         </div>
                     </div>
 
@@ -170,7 +171,7 @@
                     </button>
 
                     <div class="footer-desktop">
-                        <p>Tax Intelligence v3.0 • Suphakrit</p>
+                        <p>Tax Intelligence v3.5 • Suphakrit</p>
                         <div class="references">
                             <p><strong>แหล่งอ้างอิงข้อมูล (Reference):</strong></p>
                             <a href="https://www.rd.go.th/272.html" target="_blank">ความรู้เรื่องภาษีเงินได้บุคคลธรรมดา
@@ -188,7 +189,34 @@
     <!-- Mobile Sticky Footer -->
     <div class="mobile-sticky-bar">
         <span class="label">ภาษีที่ต้องจ่าย:</span>
-        <span class="value" id="displayTotalTaxMobile">0</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="value" id="displayTotalTaxMobile">0</span>
+            <button id="btnShowDetailsMobile" class="btn-details-mobile">i</button>
+        </div>
+    </div>
+
+    <!-- Tax Details Modal -->
+    <div id="taxModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>แจกแจงภาษีตามขั้นบันได</h2>
+            <p>เงินได้สุทธิ: <strong id="modalNetTaxable">0</strong> บาท</p>
+
+            <div class="table-wrapper">
+                <table class="tax-table">
+                    <thead>
+                        <tr>
+                            <th>เงินได้สุทธิ (ช่วง)</th>
+                            <th>อัตรา</th>
+                            <th>ภาษี (บาท)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taxTableBody">
+                        <!-- JS Will Populate This -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

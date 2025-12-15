@@ -71,16 +71,48 @@ function calculateTax() {
     let netTaxable = netBeforeDonation - totalDonationDeductible;
     if (netTaxable < 0) netTaxable = 0;
 
-    // 7. Calculate Tax (Step-ladder)
+    // 7. Calculate Tax (Step-ladder & Breakdown)
     let tax = 0;
+    const brackets = [
+        { limit: 150000, rate: 0.00 }, // 0 - 150k
+        { limit: 300000, rate: 0.05 }, // 150k - 300k
+        { limit: 500000, rate: 0.10 }, // 300k - 500k
+        { limit: 750000, rate: 0.15 }, // 500k - 750k
+        { limit: 1000000, rate: 0.20 }, // 750k - 1M
+        { limit: 2000000, rate: 0.25 }, // 1M - 2M
+        { limit: 5000000, rate: 0.30 }, // 2M - 5M
+        { limit: Infinity, rate: 0.35 } // > 5M
+    ];
 
-    if (netTaxable > 150000) tax += Math.min(netTaxable - 150000, 150000) * 0.05;
-    if (netTaxable > 300000) tax += Math.min(netTaxable - 300000, 200000) * 0.10;
-    if (netTaxable > 500000) tax += Math.min(netTaxable - 500000, 250000) * 0.15;
-    if (netTaxable > 750000) tax += Math.min(netTaxable - 750000, 250000) * 0.20;
-    if (netTaxable > 1000000) tax += Math.min(netTaxable - 1000000, 1000000) * 0.25;
-    if (netTaxable > 2000000) tax += Math.min(netTaxable - 2000000, 3000000) * 0.30;
-    if (netTaxable > 5000000) tax += (netTaxable - 5000000) * 0.35;
+    let taxDetails = [];
+    let accumulatedTaxable = 0;
+    let remainingTaxable = netTaxable;
+    let prevLimit = 0;
+
+    for (let i = 0; i < brackets.length; i++) {
+        const bracket = brackets[i];
+        const range = bracket.limit - prevLimit;
+
+        let taxableInThisBracket = 0;
+        let taxInThisBracket = 0;
+
+        if (remainingTaxable > 0) {
+            taxableInThisBracket = Math.min(remainingTaxable, range);
+            taxInThisBracket = taxableInThisBracket * bracket.rate;
+
+            remainingTaxable -= taxableInThisBracket;
+            tax += taxInThisBracket;
+        }
+
+        taxDetails.push({
+            range: `${formatCurrency(prevLimit + 1)} - ${bracket.limit === Infinity ? 'ขึ้นไป' : formatCurrency(bracket.limit)}`,
+            rate: (bracket.rate * 100).toFixed(0),
+            tax: taxInThisBracket,
+            active: taxableInThisBracket > 0 // Highlight if tax/income falls here
+        });
+
+        prevLimit = bracket.limit;
+    }
 
     // 8. Effective Rate
     const rate = totalIncome > 0 ? (tax / totalIncome) * 100 : 0;
@@ -99,7 +131,6 @@ function calculateTax() {
     $('effectiveRate').innerText = rate.toFixed(2) + '%';
 
     // Update Chart with Animation
-    // Springer Green (#045149) vs Pale #BFDBDD
     const percent = Math.min(rate, 100);
     const chart = $('taxChart');
     chart.style.background = `conic-gradient(#045149 ${percent}%, #BFDBDD 0%)`;
@@ -108,6 +139,30 @@ function calculateTax() {
     chart.classList.remove('pulse-anim');
     void chart.offsetWidth; // Trigger reflow
     chart.classList.add('pulse-anim');
+
+    // Update Modal Data (if open or for future click)
+    updateMakeTaxTable(taxDetails, netTaxable);
+}
+
+// Helper: Update Table
+function updateMakeTaxTable(details, netTaxable) {
+    const tbody = $('taxTableBody');
+    if (!tbody) return;
+
+    $('modalNetTaxable').innerText = formatCurrency(netTaxable);
+
+    let html = '';
+    details.forEach(d => {
+        const isActive = d.active ? 'class="bracket-active"' : '';
+        html += `
+            <tr ${isActive}>
+                <td>${d.range}</td>
+                <td>${d.rate}%</td>
+                <td>${formatCurrency(d.tax)}</td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
 }
 
 // Previous Value Storage for smooth transitions
@@ -141,6 +196,23 @@ function animateValue(id, endValue) {
         }
     }
     requestAnimationFrame(update);
+}
+
+// --- Modal Logic ---
+const modal = $('taxModal');
+const btnShow = $('btnShowDetails');
+const btnShowMobile = $('btnShowDetailsMobile');
+const btnClose = document.querySelector('.close-modal');
+
+if (btnShow) btnShow.onclick = () => { modal.style.display = "flex"; };
+if (btnShowMobile) btnShowMobile.onclick = () => { modal.style.display = "flex"; };
+if (btnClose) btnClose.onclick = () => { modal.style.display = "none"; };
+
+// Close when clicking outside
+window.onclick = (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 // Add Listeners
