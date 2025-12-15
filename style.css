@@ -1,0 +1,210 @@
+:root {
+    --bg-navy: #0A1929;
+    --bg-card: #172A46;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0BEC5;
+    --accent-gold: #FFD700;
+    --accent-cyan: #00E5FF;
+    --font-head: 'Prompt', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-navy);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 480px; /* Mobile App feel */
+    background-color: var(--bg-navy);
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+header h1 {
+    font-family: var(--font-head);
+    color: var(--accent-cyan);
+    letter-spacing: 2px;
+    font-size: 24px;
+}
+
+header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Dashboard */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.circular-chart {
+    width: 180px;
+    height: 180px;
+    background: conic-gradient(var(--bg-card) 0% 100%); /* Dynamic via JS */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+    margin-bottom: 25px;
+    position: relative;
+}
+
+/* Glow effect */
+.circular-chart::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    z-index: -1;
+}
+
+.inner-circle {
+    width: 140px;
+    height: 140px;
+    background-color: var(--bg-navy);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-circle span {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.inner-circle small {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.summary-cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.card {
+    background-color: var(--bg-card);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card.highlight {
+    grid-column: span 2;
+    border-color: var(--accent-gold);
+    background: linear-gradient(145deg, #172A46, #1f3659);
+}
+
+.card span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.card h3 {
+    font-family: var(--font-head);
+    font-size: 18px;
+}
+
+.card.highlight h3 {
+    color: var(--accent-gold);
+    font-size: 24px;
+}
+
+/* Inputs */
+.input-group {
+    background-color: #102035;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.input-group h2 {
+    font-size: 16px;
+    color: var(--accent-cyan);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-row {
+    margin-bottom: 15px;
+}
+
+.input-row label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.input-row input {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 12px;
+    color: white;
+    font-family: var(--font-body);
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.input-row input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+}
+
+.input-row.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-row.info span {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}

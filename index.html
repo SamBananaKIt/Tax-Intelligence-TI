@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Intelligence (TI)</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Poppins & Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <h1>TAX INTELLIGENCE</h1>
+            <p>Thai Tax Year 2024</p>
+        </header>
+
+        <!-- Visualization Dashboard -->
+        <section class="dashboard">
+            <div class="chart-container">
+                <div class="circular-chart" id="taxChart">
+                    <div class="inner-circle">
+                        <span id="effectiveRate">0.00%</span>
+                        <small>Effective Rate</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="summary-cards">
+                <div class="card">
+                    <span>Total Income</span>
+                    <h3 id="displayTotalIncome">0</h3>
+                </div>
+                <div class="card">
+                    <span>Net Taxable</span>
+                    <h3 id="displayNetTaxable">0</h3>
+                </div>
+                <div class="card highlight">
+                    <span>Total Tax</span>
+                    <h3 id="displayTotalTax">0</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <section class="inputs">
+            
+            <!-- Income Group -->
+            <div class="input-group">
+                <h2><span class="icon">💰</span> Income Details</h2>
+                <div class="input-row">
+                    <label>Monthly Salary (x12)</label>
+                    <input type="number" id="salary" placeholder="e.g. 50000">
+                </div>
+                <div class="input-row">
+                    <label>Yearly Bonus</label>
+                    <input type="number" id="bonus" placeholder="e.g. 100000">
+                </div>
+                <div class="input-row">
+                    <label>Other Income</label>
+                    <input type="number" id="otherIncome" placeholder="Freelance, Business">
+                </div>
+            </div>
+
+            <!-- Deductions Group -->
+            <div class="input-group">
+                <h2><span class="icon">🛡️</span> Deductions</h2>
+                
+                <div class="input-row info">
+                    <label>Personal Allowance</label>
+                    <span>60,000 THB (Fixed)</span>
+                </div>
+
+                <div class="input-row">
+                    <label>Social Security (Max 9k)</label>
+                    <input type="number" id="sso" placeholder="Amount paid">
+                </div>
+                <div class="input-row">
+                    <label>Easy E-Receipt (Max 50k)</label>
+                    <input type="number" id="eReceipt" placeholder="Shopping 2024">
+                </div>
+                <div class="input-row">
+                    <label>Life/Health Insurance (Max 100k)</label>
+                    <input type="number" id="insurance" placeholder="Premium paid">
+                </div>
+                <div class="input-row">
+                    <label>Pension / RMF / SSF (Max 500k)</label>
+                    <input type="number" id="pension" placeholder="Investment total">
+                </div>
+                <div class="input-row">
+                    <label>Thai ESG (Max 100k)</label>
+                    <input type="number" id="thaiEsg" placeholder="Investment">
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>Tax Intelligence v2.0 • Offline Ready</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
