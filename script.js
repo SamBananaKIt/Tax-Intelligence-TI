@@ -92,11 +92,10 @@ function calculateTax() {
     $('effectiveRate').innerText = rate.toFixed(2) + '%';
 
     // Update Chart
-    // Blue (#3B82F6) vs White/Grey (#E5E7EB) for soft theme
+    // Springer Green (#045149) vs Pale #BFDBDD
     const percent = Math.min(rate, 100);
     const chart = $('taxChart');
-    // Using CSS Variable colors would be better, but hardcoded checks fine here.
-    chart.style.background = `conic-gradient(#3B82F6 ${percent}%, #E5E7EB 0%)`;
+    chart.style.background = `conic-gradient(#045149 ${percent}%, #BFDBDD 0%)`;
 }
 
 // Add Listeners

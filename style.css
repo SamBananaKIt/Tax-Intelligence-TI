@@ -1,22 +1,22 @@
 :root {
-    /* Soft White Theme Palette */
-    --bg-main: #F3F4F6;
-    /* Soft Cloud Grey */
+    /* Springer Minimalistic Palette */
+    --bg-main: #F2F0E4;
+    /* Cream */
     --bg-card: #FFFFFF;
     /* Pure White */
-    --primary: #3B82F6;
-    /* Soft Blue */
-    --primary-light: #EBF8FF;
-    /* Very Light Blue */
-    --success: #10B981;
-    /* Soft Green */
-    --text-main: #1F2937;
-    /* Dark Grey (Not Black) */
+    --primary: #045149;
+    /* Deep Green */
+    --primary-light: #BFDBDD;
+    /* Pale Blue/Green */
+    --success: #21664D;
+    /* Medium Green */
+    --text-main: #003A37;
+    /* Dark Deep Green */
     --text-muted: #6B7280;
-    /* Muted Grey */
-    --border: #E5E7EB;
-    /* Light Border */
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    /* Standard Grey */
+    --border: #BFDBDD;
+    /* Pale Blue Border */
+    --shadow: 0 4px 6px -1px rgba(4, 81, 73, 0.1), 0 2px 4px -1px rgba(4, 81, 73, 0.05);
 
     --font-main: 'Prompt', sans-serif;
 }
@@ -226,7 +226,7 @@ p {
 
 .card.highlight {
     grid-column: span 2;
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    background: linear-gradient(135deg, #045149 0%, #21664D 100%);
     color: white;
     border: none;
 }
