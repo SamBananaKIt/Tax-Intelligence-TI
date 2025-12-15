@@ -77,9 +77,16 @@ p {
     margin: 0 auto;
 }
 
+/* Mobile Reordering: Dashboard on Top */
+.result-section {
+    order: -1;
+}
+
 .mobile-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    order: -2;
+    /* Ensure Header is always first */
 }
 
 .desktop-header {
