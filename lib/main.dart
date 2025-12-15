@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'tax_logic.dart';
 import 'dart:math';
 
 void main() {
@@ -123,106 +124,21 @@ class _TaxCalculatorPageState extends State<TaxCalculatorPage> {
       final yearlySalary = salary * 12;
       _totalIncome = yearlySalary + bonus + otherIncome;
 
-      // 2. Expenses Deduction
-      // Rule: 50% of income but Max 100,000 THB
-      double expenses = _totalIncome * 0.5;
-      if (expenses > 100000) expenses = 100000;
+      // Use dedicated TaxLogic for cleaner architecture and testing
+      _netTaxableIncome = TaxLogic.calculateNetTaxable(
+        totalIncome: _totalIncome,
+        sso: _parseValue(_ssoController),
+        eReceipt: _parseValue(_eReceiptController),
+        insurance: _parseValue(_insuranceController),
+        pensionGroup: _parseValue(_pensionGroupController),
+        thaiEsg: _parseValue(_thaiEsgController),
+      );
 
-      // 3. Deductions Calculation
-      // 3.1 Personal Allowance (Fixed)
-      const double personalAllowance = 60000;
+      _totalTax = TaxLogic.calculateTax(_netTaxableIncome);
 
-      // 3.2 Social Security (Max 9,000)
-      double sso = _parseValue(_ssoController);
-      if (sso > 9000) sso = 9000;
-
-      // 3.3 Easy E-Receipt (Max 50,000)
-      double eReceipt = _parseValue(_eReceiptController);
-      if (eReceipt > 50000) eReceipt = 50000;
-
-      // 3.4 General & Health Insurance (Max 100,000 combined)
-      double insurance = _parseValue(_insuranceController);
-      if (insurance > 100000) insurance = 100000;
-
-      // 3.5 Pension/SSF/RMF (Group capped at 500,000)
-      double pensionGroup = _parseValue(_pensionGroupController);
-      if (pensionGroup > 500000) pensionGroup = 500000;
-
-      // 3.6 Thai ESG (Max 100,000 or 30% of income)
-      double thaiEsg = _parseValue(_thaiEsgController);
-      double maxThaiEsg = _totalIncome * 0.3;
-      if (maxThaiEsg > 100000) maxThaiEsg = 100000;
-      if (thaiEsg > maxThaiEsg) thaiEsg = maxThaiEsg;
-
-      double totalDeductions = personalAllowance + sso + eReceipt + insurance + pensionGroup + thaiEsg;
-
-      // 4. Net Taxable Income Calculation
-      _netTaxableIncome = _totalIncome - expenses - totalDeductions;
-      if (_netTaxableIncome < 0) _netTaxableIncome = 0;
-
-      // 5. Tax Calculation (Progressive Rate)
-      _totalTax = _calculateProgressiveTax(_netTaxableIncome);
-
-      // 6. Effective Tax Rate
+      // Effective Tax Rate
       _effectiveTaxRate = _totalIncome > 0 ? (_totalTax / _totalIncome) : 0.0;
     });
-  }
-
-  double _calculateProgressiveTax(double netIncome) {
-    double tax = 0;
-
-    // 0 - 150,000: Exempt
-    if (netIncome <= 150000) return 0;
-
-    // 150,001 - 300,000: 5%
-    // Size of bracket: 150,000
-    if (netIncome > 150000) {
-      double taxableInBracket = min(netIncome - 150000, 150000);
-      tax += taxableInBracket * 0.05;
-    }
-
-    // 300,001 - 500,000: 10%
-    // Size of bracket: 200,000
-    if (netIncome > 300000) {
-      double taxableInBracket = min(netIncome - 300000, 200000);
-      tax += taxableInBracket * 0.10;
-    }
-
-    // 500,001 - 750,000: 15%
-    // Size of bracket: 250,000
-    if (netIncome > 500000) {
-      double taxableInBracket = min(netIncome - 500000, 250000);
-      tax += taxableInBracket * 0.15;
-    }
-
-    // 750,001 - 1,000,000: 20%
-    // Size of bracket: 250,000
-    if (netIncome > 750000) {
-      double taxableInBracket = min(netIncome - 750000, 250000);
-      tax += taxableInBracket * 0.20;
-    }
-
-    // 1,000,001 - 2,000,000: 25%
-    // Size of bracket: 1,000,000
-    if (netIncome > 1000000) {
-      double taxableInBracket = min(netIncome - 1000000, 1000000);
-      tax += taxableInBracket * 0.25;
-    }
-
-    // 2,000,001 - 5,000,000: 30%
-    // Size of bracket: 3,000,000
-    if (netIncome > 2000000) {
-      double taxableInBracket = min(netIncome - 2000000, 3000000);
-      tax += taxableInBracket * 0.30;
-    }
-
-    // Over 5,000,000: 35%
-    if (netIncome > 5000000) {
-      double taxableInBracket = netIncome - 5000000;
-      tax += taxableInBracket * 0.35;
-    }
-
-    return tax;
   }
 
   @override
